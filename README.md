@@ -7,4 +7,4 @@
 
 ## The Framework of Abductive Imitation Learning.
 
-| ![ABIL](./images/framework.png) |
+![ABIL](./images/framework.png)
