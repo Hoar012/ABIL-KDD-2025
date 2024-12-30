@@ -1,0 +1,371 @@
+{
+    "apple": [
+        "cookable",
+        "freezable",
+        "sliceable"
+    ],
+    "ashcan": [
+        "dustyable",
+        "stainable"
+    ],
+    "ball": [
+        "dustyable",
+        "stainable"
+    ],
+    "banana": [
+        "cookable",
+        "dustyable",
+        "freezable",
+        "stainable"
+    ],
+    "basket": [
+        "dustyable",
+        "stainable"
+    ],
+    "bed": [
+        "dustyable",
+        "stainable"
+    ],
+    "beef": [
+        "cookable",
+        "freezable"
+    ],
+    "bin": [
+        "dustyable",
+        "stainable"
+    ],
+    "blender": [
+        "dustyable",
+        "stainable",
+        "toggleable"
+    ],
+    "book": [
+        "dustyable"
+    ],
+    "bow": [
+        "dustyable"
+    ],
+    "box": [
+        "dustyable"
+    ],
+    "bread": [
+        "cookable",
+        "freezable"
+    ],
+    "broom": [
+        "cleaningTool",
+        "dustyable"
+    ],
+    "bucket": [
+        "dustyable",
+        "stainable"
+    ],
+    "cabinet": [
+        "dustyable",
+        "openable",
+        "stainable"
+    ],
+    "cake": [
+        "cookable",
+        "freezable"
+    ],
+    "calculator": [
+        "dustyable",
+        "toggleable"
+    ],
+    "candy": [
+        "cookable"
+    ],
+    "candle": [
+        "dustyable"
+    ],
+    "car": [
+        "dustyable",
+        "openable",
+        "stainable"
+    ],
+    "carton": [
+        "dustyable"
+    ],
+    "carving_knife": [
+        "dustyable",
+        "slicer",
+        "stainable"
+    ],
+    "casserole": [
+        "cookable",
+        "freezable",
+        "stainable"
+    ],
+    "chair": [
+        "dustyable",
+        "stainable"
+    ],
+    "chicken": [
+        "cookable",
+        "freezable"
+    ],
+    "chip": [
+        "cookable"
+    ],
+    "cookie": [
+        "cookable",
+        "freezable"
+    ],
+    "countertop": [
+        "dustyable",
+        "stainable"
+    ],
+    "date": [
+        "cookable",
+        "freezable"
+    ],
+    "document": [
+        "dustyable"
+    ],
+    "door": [
+        "dustyable",
+        "openable",
+        "stainable"
+    ],
+    "dustpan": [
+        "dustyable",
+        "stainable"
+    ],
+    "egg": [
+        "cookable",
+        "freezable"
+    ],
+    "electric_refrigerator": [
+        "coldSource",
+        "dustyable",
+        "openable",
+        "stainable"
+    ],
+    "fish": [
+        "cookable",
+        "freezable"
+    ],
+    "floor": [
+        "dustyable",
+        "stainable"
+    ],
+    "folder": [
+        "dustyable"
+    ],
+    "fork": [
+        "dustyable",
+        "stainable"
+    ],
+    "gym_shoe": [
+        "dustyable",
+        "stainable"
+    ],
+    "hardback": [
+        "dustyable"
+    ],
+    "hamburger": [
+        "cookable",
+        "freezable"
+    ],
+    "hammer": [
+        "dustyable",
+        "stainable"
+    ],
+    "highlighter": [
+        "dustyable",
+        "stainable"
+    ],
+    "jewelry": [
+        "dustyable",
+        "stainable"
+    ],
+    "juice": [
+        "freezable"
+    ],
+    "kettle": [
+        "dustyable",
+        "stainable"
+    ],
+    "knife": [
+        "dustyable",
+        "slicer",
+        "stainable"
+    ],
+    "lemon": [
+        "cookable",
+        "freezable",
+        "sliceable"
+    ],
+    "lettuce": [
+        "freezable"
+    ],
+    "marker": [
+        "dustyable",
+        "stainable"
+    ],
+    "necklace": [
+        "dustyable",
+        "stainable"
+    ],
+    "notebook": [
+        "dustyable"
+    ],
+    "oatmeal": [
+        "cookable",
+        "freezable"
+    ],
+    "olive": [
+        "cookable",
+        "freezable"
+    ],
+    "package": [
+        "dustyable",
+        "openable"
+    ],
+    "pan": [
+        "dustyable",
+        "stainable"
+    ],
+    "pen": [
+        "dustyable",
+        "stainable"
+    ],
+    "pencil": [
+        "dustyable",
+        "stainable"
+    ],
+    "plate": [
+        "dustyable",
+        "stainable"
+    ],
+    "plywood": [
+        "dustyable",
+        "stainable"
+    ],
+    "pop": [
+        "freezable"
+    ],
+    "pot_plant": [
+        "soakable"
+    ],
+    "printer": [
+        "dustyable",
+        "toggleable"
+    ],
+    "radish": [
+        "cookable",
+        "freezable",
+        "stainable"
+    ],
+    "rag": [
+        "cleaningTool",
+        "soakable",
+        "stainable"
+    ],
+    "salad": [
+        "cookable",
+        "freezable"
+    ],
+    "sandwich": [
+        "cookable",
+        "freezable"
+    ],
+    "saw": [
+        "dustyable",
+        "stainable"
+    ],
+    "scrub_brush": [
+        "cleaningTool",
+        "dustyable",
+        "soakable",
+        "stainable"
+    ],
+    "shelf": [
+        "dustyable",
+        "stainable"
+    ],
+    "shoe": [
+        "dustyable",
+        "stainable"
+    ],
+    "shower": [
+        "stainable"
+    ],
+    "sink": [
+        "dustyable",
+        "stainable",
+        "toggleable"
+    ],
+    "soap": [],
+    "sock": [
+        "dustyable",
+        "stainable"
+    ],
+    "sofa": [
+        "dustyable",
+        "stainable"
+    ],
+    "soup": [
+        "cookable",
+        "freezable"
+    ],
+    "spoon": [
+        "dustyable",
+        "stainable"
+    ],
+    "stove": [
+        "dustyable",
+        "heatSource",
+        "openable",
+        "stainable",
+        "toggleable"
+    ],
+    "strawberry": [
+        "cookable",
+        "freezable",
+        "sliceable"
+    ],
+    "sugar": [
+        "cookable"
+    ],
+    "table": [
+        "dustyable",
+        "stainable"
+    ],
+    "tea_bag": [
+        "dustyable",
+        "soakable",
+        "stainable"
+    ],
+    "teapot": [
+        "dustyable",
+        "stainable"
+    ],
+    "toilet": [
+        "dustyable",
+        "stainable"
+    ],
+    "tomato": [
+        "cookable",
+        "freezable",
+        "sliceable"
+    ],
+    "towel": [
+        "cleaningTool",
+        "soakable",
+        "stainable"
+    ],
+    "vegetable_oil": [
+        "cookable",
+        "freezable"
+    ],
+    "water": [
+        "freezable"
+    ],
+    "window": [
+        "dustyable",
+        "openable",
+        "stainable"
+    ]
+}

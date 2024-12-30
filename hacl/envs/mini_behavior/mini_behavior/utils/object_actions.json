@@ -1,0 +1,426 @@
+{
+    "apple": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "slice",
+        "cook"
+    ],
+    "ashcan": [],
+    "ball": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "banana": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "bed": [],
+    "beef": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "bin": [],
+    "blender": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "toggle"
+    ],
+    "book": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "bow": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "box": [],
+    "bread": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "broom": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "bucket": [],
+    "cabinet": [
+        "open",
+        "close"
+    ],
+    "cake": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "calculator": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "toggle"
+    ],
+    "candy": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "candle": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "car": [
+        "open",
+        "close"
+    ],
+    "carton": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "carving_knife": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "casserole": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "chair": [],
+    "chicken": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "chip": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "cookie": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "countertop": [],
+    "date": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "document": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "door": [
+        "open",
+        "close"
+    ],
+    "dustpan": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "egg": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "electric_refrigerator": [
+        "open",
+        "close"
+    ],
+    "fish": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "floor": [],
+    "folder": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "fork": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "gym_shoe": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "hamburger": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "hammer": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "hardback": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "highlighter": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "jewelry": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "juice": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "kettle": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "knife": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "lemon": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "slice",
+        "cook"
+    ],
+    "lettuce": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "marker": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "necklace": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "notebook": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "oatmeal": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "olive": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "package": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "open",
+        "close"
+    ],
+    "pan": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "pen": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "pencil": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "plate": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "plywood": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "pop": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "pot_plant": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "printer": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "toggle"
+    ],
+    "radish": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "rag": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "salad": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "sandwich": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "saw": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "scrub_brush": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "shelf": [],
+    "shoe": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "shower": [],
+    "sink": [
+        "toggle"
+    ],
+    "soap": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "sock": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "sofa": [],
+    "soup": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "spoon": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "stove": [
+        "toggle",
+        "open",
+        "close"
+    ],
+    "strawberry": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "slice",
+        "cook"
+    ],
+    "sugar": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "table": [],
+    "tea_bag": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "teapot": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "toilet": [],
+    "tomato": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "slice",
+        "cook"
+    ],
+    "towel": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "vegetable_oil": [
+        "pickup",
+        "drop",
+        "drop_in",
+        "cook"
+    ],
+    "wall": [],
+    "water": [
+        "pickup",
+        "drop",
+        "drop_in"
+    ],
+    "window ": [
+        "open",
+        "close"
+    ]
+}
