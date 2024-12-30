@@ -6,7 +6,7 @@ import hacl.pdsketch as pds
 from copy import deepcopy
 from hacl.envs.gridworld.minigrid.gym_minigrid.path_finding import find_path_to_obj
 
-__all__ = ['MGState', 'OfflineDataGenerator', 'worker_offline', 'worker_bc', 'worker_search']
+__all__ = ['MGState', 'OfflineDataGenerator', 'worker_offline', 'worker_search']
 
 
 class MGState(object):
@@ -80,6 +80,10 @@ class OfflineDataGenerator(object):
 
         if env.task == 'goto2':
             plan.extend([env.Actions.forward, env.Actions.left, env.Actions.forward, env.Actions.left, env.Actions.forward])
+
+        # if not succ_flag:
+        #     for i in range(5):
+        #         plan.extend([random.choice([env.Actions.forward, env.Actions.left, env.Actions.right])])
 
         return plan
 
@@ -266,8 +270,8 @@ def worker_offline(args, domain, env, action_filter):
     data = (states, actions, dones, goal, succ, extra_monitors)
     return data
 
-def worker_bc(args, domain, env):
-    extra_monitors = dict()
+def worker_il(args, domain, env):
+    filt_expr = None
     end = time.time()
 
     obs = env.reset()
@@ -298,8 +302,7 @@ def worker_bc(args, domain, env):
             break
     dones = torch.tensor(dones, dtype=torch.int64)
 
-    extra_monitors['time/generate'] = time.time() - end
-    data = (states, actions, dones, goal, succ, extra_monitors)
+    data = (states, actions, dones, goal, succ, filt_expr)
     return data
 
 def worker_search(args, domain, env, action_filter):

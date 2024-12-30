@@ -1,0 +1,85 @@
+(define
+(domain cliport-v2024)
+(:requirements :pdsketch-v2-1)
+
+(:types
+    item container - object
+    pose - vector[float32, 3]
+)
+
+(:feature item-pose [group="augmented"]
+    :parameters (?o - item)
+    :output (pose)
+)
+(:feature container-pose [group="augmented"]
+    :parameters (?o - container)
+    :output (pose)
+)
+(:feature item-image [group="augmented-input"]
+    :parameters (?o - item)
+    :output (vector[float32, 3])
+)
+(:feature container-image [group="augmented-input"]
+    :parameters (?o - container)
+    :output (vector[float32, 3])
+)
+(:feature item-feature [group="augmented"]
+    :parameters (?o - item)
+    :output (vector[float32, 64])
+    :expr (??f (item-image ?o))
+)
+(:feature container-feature [group="augmented"]
+    :parameters (?o - container)
+    :output (vector[float32, 64])
+    :expr (??f (container-image ?o))
+)
+
+(:derived (is-blue    [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-red    [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-green  [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-orange [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-yellow [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-purple [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-pink   [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-cyan   [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-brown  [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-white  [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-gray  [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-bowl  [group="goal"] ?o - item) (??f (item-feature ?o)))
+
+(:derived (c-is-blue    [group="goal"] ?o - container) (??f (container-feature ?o)))
+(:derived (c-is-red    [group="goal"] ?o - container) (??f (container-feature ?o)))
+(:derived (c-is-green  [group="goal"] ?o - container) (??f (container-feature ?o)))
+(:derived (c-is-orange [group="goal"] ?o - container) (??f (container-feature ?o)))
+(:derived (c-is-yellow [group="goal"] ?o - container) (??f (container-feature ?o)))
+(:derived (c-is-purple [group="goal"] ?o - container) (??f (container-feature ?o)))
+(:derived (c-is-pink   [group="goal"] ?o - container) (??f (container-feature ?o)))
+(:derived (c-is-cyan   [group="goal"] ?o - container) (??f (container-feature ?o)))
+(:derived (c-is-brown  [group="goal"] ?o - container) (??f (container-feature ?o)))
+(:derived (c-is-white  [group="goal"] ?o - container) (??f (container-feature ?o)))
+(:derived (c-is-gray  [group="goal"] ?o - container) (??f (container-feature ?o)))
+
+(:derived (is-letter_R    [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-letter_A  [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-triangle [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-square [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-plus   [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-letter_T   [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-diamond  [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-pentagon [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-rectangle    [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-flower  [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-star [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-circle [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-letter_G   [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-letter_V   [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-letter_E  [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-letter_L [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-ring    [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-hexagon  [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-heart [group="goal"] ?o - item) (??f (item-feature ?o)))
+(:derived (is-letter_M [group="goal"] ?o - item) (??f (item-feature ?o)))
+
+(:derived (is-in     [group="goal"] ?o1 - item ?o2 - container) (??f (item-pose ?o1) (container-pose ?o2)))
+(:derived (is-same-shape     [group="goal"] ?o1 - item ?o2 - container) (??f (item-feature ?o1) (container-feature ?o2)))
+)

@@ -7,7 +7,7 @@ import numpy as np
 from copy import deepcopy
 from hacl.envs.mini_behavior.mini_behavior.path_finding import find_path_to_obj
 
-__all__ = ['MGState', 'OfflineDataGenerator', 'worker_offline', 'worker_bc', 'worker_eval']
+__all__ = ['MGState', 'OfflineDataGenerator', 'worker_offline', 'worker_bc', 'worker_dt', 'worker_eval']
 
 class MGState(object):
     def __init__(self, agent_pos, agent_dir, grid, carrying):
@@ -33,7 +33,8 @@ def execute_plan(env, plan):
     
     return env
 
-action_to_operator = {'left': 'lturn', 'right': 'rturn', 'forward': 'forward', 'pickup_0': 'pickup_0', 'pickup_1': 'pickup_1', 'pickup_2': 'pickup_2', 'drop_0': 'drop_0', 'drop_1': 'drop_1', 'drop_2': 'drop_2', 'toggle': 'toggle', 'open': 'open', 'close':'close', 'slice':'slice', 'cook': 'cook', 'drop_in': 'drop_in'}
+action_to_operator = {'left': 'lturn', 'right': 'rturn', 'forward': 'forward', 'pickup_0': 'pickup_0',
+                      'pickup_1': 'pickup_1', 'pickup_2': 'pickup_2', 'drop_0': 'drop_0', 'drop_1': 'drop_1', 'drop_2': 'drop_2', 'toggle': 'toggle', 'open': 'open', 'close':'close', 'slice':'slice', 'cook': 'cook', 'drop_in': 'drop_in'}
 
 class OfflineDataGenerator(object):
     def __init__(self, succ_prob):
@@ -263,7 +264,7 @@ class OfflineDataGenerator(object):
                 return []
             
             sub_plan.append(pick_action[i])
-            c_env = execute_plan(sub_plan)
+            c_env = execute_plan(c_env, sub_plan)
                 
             while shelf_index < 6:
                 path_plan = find_path_to_obj(c_env.env, shelf_pos[shelf_index])
@@ -275,7 +276,7 @@ class OfflineDataGenerator(object):
             if path_plan is None:
                 return []
             path_plan.append(c_env.Actions.drop_2) # drop it on the shelf
-            c_env = execute_plan(path_plan)
+            c_env = execute_plan(c_env, path_plan)
             
             plan.append(sub_plan + path_plan)
 
@@ -302,7 +303,7 @@ class OfflineDataGenerator(object):
                 return []
             
             sub_plan.append(pick_action[i])
-            c_env = execute_plan(sub_plan)
+            c_env = execute_plan(c_env, sub_plan)
                 
             while shelf_index < 6:
                 path_plan = find_path_to_obj(c_env.env, shelf_pos[shelf_index])
@@ -314,7 +315,7 @@ class OfflineDataGenerator(object):
             if path_plan is None:
                 return []
             path_plan.append(c_env.Actions.drop_2)#放在书架上
-            c_env = execute_plan(path_plan)
+            c_env = execute_plan(c_env, path_plan)
             
             plan.append(sub_plan + path_plan)
 
@@ -337,13 +338,13 @@ class OfflineDataGenerator(object):
             if plan1 is None:
                 return []
             plan1.append(c_env.Actions.pickup_2)  #pickup the hamburger
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
 
             plan2 = find_path_to_obj(c_env.env, ashcan_pos)
             if plan2 is None:
                 return []
             plan2.append(c_env.Actions.drop_in)  # drop it into the ashcan
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
             
             plan.append(plan1+plan2)
 
@@ -393,14 +394,14 @@ class OfflineDataGenerator(object):
             if plan1 is None:
                 return []
             plan1.append(c_env.Actions.pickup_2)  # pickup the hamburger
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
             
             plan2 = find_path_to_obj(c_env.env, ashcan_pos)
             if plan2 is None:
                 return []
             plan2.append(c_env.Actions.drop_in)  # drop it into the ashcan
             
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
             
             plan.append(plan1+plan2)
 
@@ -432,7 +433,7 @@ class OfflineDataGenerator(object):
                 return []
             plan1.append(c_env.Actions.pickup_1)  #捡起countertop上的plate
             
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
 
             if cabinet_vol[cabinet_index] >= 3:
                 cabinet_index += 1
@@ -451,7 +452,7 @@ class OfflineDataGenerator(object):
                 is_open = True
             plan2.append(c_env.Actions.drop_in)
             
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
             
             plan.append(plan1 + plan2)
 
@@ -482,7 +483,7 @@ class OfflineDataGenerator(object):
             if plan1 is None:
                 return []
             plan1.append(c_env.Actions.pickup_0)  #捡起地上的书
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
 
             if box_vol[box_index] >= 1:
                 box_index += 1
@@ -497,7 +498,7 @@ class OfflineDataGenerator(object):
             box_vol[box_index] += 1
             
             plan2.append(c_env.Actions.drop_in)  #put it in
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
             
             plan.append(plan1 + plan2)
         
@@ -514,7 +515,7 @@ class OfflineDataGenerator(object):
             if plan1 is None:
                 return []
             plan1.append(c_env.Actions.pickup_2)  #捡shelf上的书
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
 
             if box_vol[box_index] >= 1:
                 box_index += 1
@@ -529,7 +530,7 @@ class OfflineDataGenerator(object):
             box_vol[box_index] += 1
             
             plan2.append(c_env.Actions.drop_in)  #put it in
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
             
             plan.append(plan1 + plan2)
 
@@ -560,7 +561,7 @@ class OfflineDataGenerator(object):
             if plan1 is None:
                 return []
             plan1.append(c_env.Actions.pickup_0)  #捡起箱子里的candle
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
 
             if table_vol[table_index] >= 1:
                 table_index += 1
@@ -575,7 +576,7 @@ class OfflineDataGenerator(object):
             table_vol[table_index] += 1
             
             plan2.append(c_env.Actions.drop_2)  #放在桌子上
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
             
             plan.append(plan1 + plan2)
             
@@ -591,7 +592,7 @@ class OfflineDataGenerator(object):
             if plan1 is None:
                 return []
             plan1.append(c_env.Actions.pickup_0)  #捡起箱子里的candle
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
 
             if table_vol[table_index] >= 1:
                 table_index += 1
@@ -606,7 +607,7 @@ class OfflineDataGenerator(object):
             table_vol[table_index] += 1
             
             plan2.append(c_env.Actions.drop_2)  #放在桌子上
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
             
             plan.append(plan1 + plan2)
 
@@ -634,7 +635,7 @@ class OfflineDataGenerator(object):
         if plan1 is None:
             return []
         plan1.append(c_env.Actions.pickup_2)
-        c_env = execute_plan(plan1)
+        c_env = execute_plan(c_env, plan1)
             
         # clean the car
         agent_pos = c_env.env.agent_pos
@@ -649,7 +650,7 @@ class OfflineDataGenerator(object):
             break
         if plan2 is None:
             return []
-        c_env = execute_plan(plan2)
+        c_env = execute_plan(c_env, plan2)
         plan.append(plan1 + plan2)
         
         # put the tools into the bucket
@@ -658,13 +659,13 @@ class OfflineDataGenerator(object):
         if plan2 is None:
             return []
         plan2.append(c_env.Actions.drop_in)
-        c_env = execute_plan(plan1 + plan2)
+        c_env = execute_plan(c_env, plan1 + plan2)
         
         plan3 = find_path_to_obj(c_env.env, soap.cur_pos)
         if plan3 is None:
             return []
         plan3.append(c_env.Actions.pickup_2)
-        c_env = execute_plan(plan3)
+        c_env = execute_plan(c_env, plan3)
 
         plan4 = find_path_to_obj(c_env.env, bucket_pos[1])
         if plan4 is None:
@@ -702,13 +703,13 @@ class OfflineDataGenerator(object):
         if plan1 is None:
             return []
         plan1.append(c_env.Actions.pickup_0)
-        c_env = execute_plan(plan1)
+        c_env = execute_plan(c_env, plan1)
             
         plan2 = find_path_to_obj(c_env.env, sink_pos[0])
         if plan2 is None:
             return []
         plan2.append(c_env.Actions.drop_in)
-        c_env = execute_plan(plan2)
+        c_env = execute_plan(c_env, plan2)
 
         plan.append(plan1 + plan2)
         
@@ -717,13 +718,13 @@ class OfflineDataGenerator(object):
         if plan1 is None:
             return []
         plan1.append(c_env.Actions.pickup_1)
-        c_env = execute_plan(plan1)
+        c_env = execute_plan(c_env, plan1)
             
         plan2 = find_path_to_obj(c_env.env, sink_pos[1])
         if plan2 is None:
             return []
         plan2.append(c_env.Actions.drop_in)
-        c_env = execute_plan(plan2)
+        c_env = execute_plan(c_env, plan2)
         plan.append(plan1 + plan2)
         
         # pick shoes
@@ -734,14 +735,14 @@ class OfflineDataGenerator(object):
             if plan1 is None:
                 return []
             plan1.append(c_env.Actions.pickup_1)  #捡起床上的shoe
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
 
             plan2 = find_path_to_obj(c_env.env, sink_pos[i])
             if plan2 is None:
                 return []
             
             plan2.append(c_env.Actions.drop_1)  #放在towel上
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
             
             plan.append(plan1 + plan2)
             i += 1
@@ -751,7 +752,7 @@ class OfflineDataGenerator(object):
         if plan1 is None:
             return []
         plan1.append(c_env.Actions.pickup_1)
-        c_env = execute_plan(plan1)
+        c_env = execute_plan(c_env, plan1)
             
         plan2 = find_path_to_obj(c_env.env, sink_pos[2])
         if plan2 is None:
@@ -791,7 +792,7 @@ class OfflineDataGenerator(object):
             if plan1 is None:
                 return []
             plan1.append(pick_action[table_index])  #pick
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
 
             plan2 = None
             plan2 = find_path_to_obj(c_env.env, table_p[table_index])
@@ -799,7 +800,7 @@ class OfflineDataGenerator(object):
                 return []
 
             plan2.append(c_env.Actions.drop_2)  #放在桌子上
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
                 
             table_index += 1
         
@@ -845,7 +846,7 @@ class OfflineDataGenerator(object):
             if plan1 is None:
                 return []
             plan1.append(pick_action[i]) 
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
 
             plan2 = None
             plan2 = find_path_to_obj(c_env.env, table_p[table_index])
@@ -853,7 +854,7 @@ class OfflineDataGenerator(object):
                 return []
 
             plan2.append(c_env.Actions.drop_2)
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
                 
             table_index += 1
         
@@ -882,7 +883,7 @@ class OfflineDataGenerator(object):
             if plan1 is None:
                 return []
             plan1.append(c_env.Actions.pickup_0)
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
 
             for x,y in comp_pos:
                 if c_env.env.grid.get(x,y)[0][1] is None:
@@ -891,7 +892,7 @@ class OfflineDataGenerator(object):
             if plan2 is None:
                 return []
             plan2.append(c_env.Actions.drop_0)
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
                 
             plan.append(plan1+plan2)
         else:
@@ -901,8 +902,8 @@ class OfflineDataGenerator(object):
             plan1 = find_path_to_obj(c_env.env, saw.cur_pos)
             if plan1 is None:
                 return []
-            plan1.append(c_env.Actions.pickup_0)  #捡起地上的saw
-            c_env = execute_plan(plan1)
+            plan1.append(c_env.Actions.pickup_0)
+            c_env = execute_plan(c_env, plan1)
 
             for x,y in comp_pos:
                 if c_env.env.grid.get(x,y)[0][1] is None:
@@ -911,7 +912,7 @@ class OfflineDataGenerator(object):
             if plan2 is None:
                 return []
             plan2.append(c_env.Actions.drop_0)
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
                 
             plan.append(plan1+plan2)
         else:
@@ -931,13 +932,13 @@ class OfflineDataGenerator(object):
             if plan1 is None:
                 return []
             plan1.append(c_env.Actions.pickup_0)
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
 
             plan2 = find_path_to_obj(c_env.env, target_pos[i])
             if plan2 is None:
                 return []
             plan2.append(c_env.Actions.drop_0)
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
                 
             plan.append(plan1+plan2)
             i += 1
@@ -959,8 +960,8 @@ class OfflineDataGenerator(object):
         if plan1 is None:
             return []
         plan1.append(c_env.Actions.open)
-        plan1.append(c_env.Actions.pickup_1)  #捡起cabinet里的teapot
-        c_env = execute_plan(plan1)
+        plan1.append(c_env.Actions.pickup_1)  #pick up the teapot
+        c_env = execute_plan(c_env, plan1)
 
         stove_pos = np.array(stove.all_pos)
         agent_pos = c_env.env.agent_pos
@@ -978,7 +979,7 @@ class OfflineDataGenerator(object):
         
         plan2.append(c_env.Actions.open)
         plan2.append(c_env.Actions.drop_2)
-        c_env = execute_plan(plan2)
+        c_env = execute_plan(c_env, plan2)
         
         plan.append(plan1 + plan2)
         
@@ -988,7 +989,7 @@ class OfflineDataGenerator(object):
         if plan1 is None:
             return []
         plan1.append(c_env.Actions.pickup_0)
-        c_env = execute_plan(plan1)
+        c_env = execute_plan(c_env, plan1)
         
         plan2 = find_path_to_obj(c_env.env, teapot.cur_pos)
 
@@ -1022,7 +1023,7 @@ class OfflineDataGenerator(object):
         plan1.append(c_env.Actions.pickup_0)  #pick
         plan1.append(c_env.Actions.drop_in)
         
-        c_env = execute_plan(plan1)
+        c_env = execute_plan(c_env, plan1)
 
         plan.append(plan1)
         
@@ -1031,7 +1032,7 @@ class OfflineDataGenerator(object):
             return []
         plan2.append(c_env.Actions.pickup_1)  #pick
         plan2.append(c_env.Actions.drop_in)
-        c_env = execute_plan(plan2)
+        c_env = execute_plan(c_env, plan2)
 
         plan.append(plan2)
         
@@ -1044,15 +1045,15 @@ class OfflineDataGenerator(object):
             if plan1 is None:
                 return []
             plan1.append(pick_action[pick_index])  #pick
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
 
             plan2 = None
             plan2 = find_path_to_obj(c_env.env, cabinet_p[pick_index])
             if plan2 is None:
                 return []
 
-            plan2.append(c_env.Actions.drop_in)  #放在cabinet中
-            c_env = execute_plan(plan1)
+            plan2.append(c_env.Actions.drop_in)
+            c_env = execute_plan(c_env, plan1)
 
             pick_index += 1        
             plan.append(plan1 + plan2)
@@ -1061,7 +1062,7 @@ class OfflineDataGenerator(object):
         if plan1 is None:
             return []
         plan1.append(c_env.Actions.pickup_1)  #pick 
-        c_env = execute_plan(plan1)
+        c_env = execute_plan(c_env, plan1)
         
         for pos in table.all_pos:
             plan2 = find_path_to_obj(c_env.env, pos)
@@ -1069,7 +1070,7 @@ class OfflineDataGenerator(object):
                 break
         if plan2 is None:
             return []
-        plan2.append(c_env.Actions.drop_2)  #放在桌子上
+        plan2.append(c_env.Actions.drop_2)
     
         plan.append(plan1 + plan2)
         assert len(plan) == 7
@@ -1092,13 +1093,13 @@ class OfflineDataGenerator(object):
             if plan1 is None:
                 return []
             plan1.append(c_env.Actions.pickup_1)
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
                 
             plan2 = find_path_to_obj(c_env.env, sink_pos[sink_index])
             if plan2 is None:
                 return []
             plan2.append(c_env.Actions.drop_in)
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
 
             plan.append(plan1 + plan2)
             sink_index += 1
@@ -1109,7 +1110,7 @@ class OfflineDataGenerator(object):
         if plan1 is None:
             return []
         plan1.append(c_env.Actions.pickup_1)
-        c_env = execute_plan(plan0 + plan1)
+        c_env = execute_plan(c_env, plan0 + plan1)
             
         plan0 = plan0 + plan1
         
@@ -1121,7 +1122,7 @@ class OfflineDataGenerator(object):
             if obj is not teapot:
                 plan2.append(c_env.Actions.pickup_1)
             
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
 
             plan0 = plan0 + plan2
             
@@ -1137,7 +1138,7 @@ class OfflineDataGenerator(object):
                 if plan1 is None:
                     return []
             plan1.append(c_env.Actions.pickup_0)
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
                 
             cabinet_pos = np.array(cabinet.all_pos)
             agent_pos = c_env.env.agent_pos
@@ -1153,7 +1154,7 @@ class OfflineDataGenerator(object):
             if obj is teapot:
                 plan2.append(c_env.Actions.open)
             plan2.append(c_env.Actions.drop_in)
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
             
             plan.append(plan1 + plan2)
         assert len(plan) == 7
@@ -1181,7 +1182,7 @@ class OfflineDataGenerator(object):
             if plan1 is None:
                 return []
             plan1.append(c_env.Actions.pickup_0)  #捡起地上的plant
-            c_env = execute_plan(plan1)
+            c_env = execute_plan(c_env, plan1)
 
             plan2 = find_path_to_obj(c_env.env, sink_pos[i])
             if plan2 is None:
@@ -1190,7 +1191,7 @@ class OfflineDataGenerator(object):
                 plan2.append(c_env.Actions.toggle)
                 toggleon = True
             plan2.append(c_env.Actions.drop_in)
-            c_env = execute_plan(plan2)
+            c_env = execute_plan(c_env, plan2)
             
             plan.append(plan1 + plan2)
             i += 1
@@ -1355,6 +1356,50 @@ def worker_bc(args, domain, env):
             break
     dones = torch.tensor(dones, dtype=torch.int64)
 
+    extra_monitors['time/generate'] = time.time() - end
+    data = (states, actions, dones, goal, succ, extra_monitors)
+    return data
+
+def worker_dt(args, domain, env):
+    traj_len = 2
+    extra_monitors = dict()
+    end = time.time()
+
+    obs = env.reset()
+    state, goal = obs['state'], obs['mission']
+    data_gen = OfflineDataGenerator(1)
+    plan = data_gen.plan(env)
+
+    if plan is None:
+        plan = list()
+
+    states = []
+    actions = []
+    all_states = []
+    all_actions = []
+    dones = [False]
+    succ = False
+
+    for action in plan:
+        pddl_action = domain.operators[action_to_operator[action.name]]('r')
+        
+        rl_action = pds.rl.RLEnvAction(pddl_action.name)
+        state = obs['state']
+        all_actions.append(pddl_action)
+        all_states.append(state)
+        if len(all_actions) >= traj_len:
+            states.append(all_states[-traj_len:])
+            actions.append(all_actions[-traj_len:])
+        
+        obs, reward, (done, score), _ = env.step(rl_action)
+
+        dones.append(done)
+        
+        if done:
+            succ = True
+            break
+    dones = torch.tensor(dones, dtype=torch.int64)
+    
     extra_monitors['time/generate'] = time.time() - end
     data = (states, actions, dones, goal, succ, extra_monitors)
     return data
